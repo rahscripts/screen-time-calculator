@@ -5,19 +5,22 @@ export default function Home() {
 
   const [time, setTime] = useState("");
   const [totalDays, setTotalDays] = useState(0);
+  const [isOpen, setIsOpen] = useState(false);
 
   const [TotalDaysInLife, setTotalDaysInLife] = useState(0);
   const month = TotalDaysInLife/28;
-  const years = month/12;
+  const years = Math.round(month/12);
 
   const handleCalculate = () => {
     if (Number(time) == 0) return;
+    if (Number(time) > 24) return alert("screen time should be less than 24hrs");
     const timeInYear = Number(time) * 365;
     //days of screen
     const days = Math.floor(timeInYear/24);
     const daysOfLife = days*70;
     setTotalDays(days);
     setTotalDaysInLife(daysOfLife);
+    setIsOpen(!isOpen);
   };
 
   return (
@@ -34,7 +37,12 @@ export default function Home() {
       </div>
 
       <div className="flex items-center flex-col">
-        <div className="max-md:text-xl text-2xl font-semibold mt-10">What is Your Unproductive Screen Time?</div>
+        <div className="max-md:text-xl text-2xl font-semibold mt-10">What is your <span className="relative inline-block px-2">
+          <span className="absolute inset-0 bg-green-200 -rotate-2 shadow-md"> </span>
+                  <span className="relative">
+                       screen time
+                 </span>
+        </span> per day?</div>
 
         <div className="mt-5">
           <input
@@ -48,17 +56,18 @@ export default function Home() {
 
         <div className="bg-pink-300 hover:bg-pink-500 rounded px-2 p-1 m-4 cursor-pointer duration-300 transition-all text-white" onClick={handleCalculate}>calculate</div>
       </div>
-      <div className="flex flex-col font- my-10 gap-2">
+
+      {isOpen && <div className="flex flex-col my-10 gap-2">
         <div className=" font-semibold ">
-          Based on <span className="text-pink-600 font-extrabold animate-pulse">{time} per day</span>, here's what it really adds up to:
+          Based on <span className="text-pink-600 font-extrabold animate-pulse">{time} hrs per day</span>, here's what it really adds up to:
           </div>
 
         <div className="bg-pink-300 border-dashed m-1 rounded-md p-1 border ">
-          📅 <span className="font-bold bg-green-200 px-1 py-0.5 ">{totalDays} full days </span> wasted every year
+          📅 <span className="font-bold bg-green-200 px-1 py-0.5 pr-0.5">{totalDays} full days </span> wasted every year
           </div>
 
         <div className="bg-pink-300 border-dashed m-1 rounded-md p-1 border ">
-          😱 <span className="font-bold bg-green-200 px-1 py-0.5 ">{TotalDaysInLife} days </span> lost over a lifetime
+          😱 <span className="font-bold bg-green-200 px-1 py-0.5 pr-0.5">{TotalDaysInLife} days </span> lost over a lifetime
 
         </div>
 
@@ -67,9 +76,9 @@ export default function Home() {
           </div>
 
         <div className="bg-pink-300 border-dashed m-1 rounded-md p-1 border ">
-          💔 Or <span className="font-bold bg-green-200 px-1 py-0.5 ">{years} years </span> of your life.
+          💔 Or <span className="font-bold bg-green-200 px-1 pr-0 pr-0.5 py-0.5 ">{years} years </span> of your life.
           </div>
-      </div>
+      </div>}
     </div>
   );
 }
