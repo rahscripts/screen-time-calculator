@@ -7,7 +7,8 @@ export default function Home() {
   const [totalDays, setTotalDays] = useState(0);
 
   const [TotalDaysInLife, setTotalDaysInLife] = useState(0);
-  
+  const month = TotalDaysInLife/28;
+  const years = month/12;
 
   const handleCalculate = () => {
     if (Number(time) == 0) return;
@@ -15,33 +16,60 @@ export default function Home() {
     //days of screen
     const days = Math.floor(timeInYear/24);
     const daysOfLife = days*70;
-    setTime("");
     setTotalDays(days);
     setTotalDaysInLife(daysOfLife);
   };
 
   return (
-    <div className="max-w-2xl mx-auto">
-      <div>Screen Time Calculator</div>
-
+    <div className="max-w-2xl p-10 flex flex-col items-center justify-center mx-auto">
       <div>
-        <div>Just 1 Question</div>
-        <div>Whats Your Unproductive Screen Time</div>
-
         <div>
+              <h1 className="text-3xl font-extrabold ">
+                Screen Time Calculator
+                <span className="uppercase font-black tracking-tighter text-xs italic underline decoration-wavy text-pink-600">
+                    by MR
+                    </span>
+                    </h1>
+          </div>
+      </div>
+
+      <div className="flex items-center flex-col">
+        <div className="max-md:text-xl text-2xl font-semibold mt-10">What is Your Unproductive Screen Time?</div>
+
+        <div className="mt-5">
           <input
             type="number"
-            placeholder="hey😭"
-            className="bg-green-100"
+            placeholder="1,2,3,4,5"
+            className="bg-pink-100 px-2 p-1 border-green-700 border-1 rounded mx-2"
             onChange={(e) => setTime(e.target.value)}
           />
           Hours!
         </div>
 
-        <div onClick={handleCalculate}>calculate</div>
+        <div className="bg-pink-300 hover:bg-pink-500 rounded px-2 p-1 m-4 cursor-pointer duration-300 transition-all text-white" onClick={handleCalculate}>calculate</div>
       </div>
-      <div>{totalDays}</div>
-      <div>You spend {TotalDaysInLife} days of your life.</div>
+      <div className="flex flex-col font- my-10 gap-2">
+        <div className=" font-semibold ">
+          Based on <span className="text-pink-600 font-extrabold animate-pulse">{time} per day</span>, here's what it really adds up to:
+          </div>
+
+        <div className="bg-pink-300 border-dashed m-1 rounded-md p-1 border ">
+          📅 <span className="font-bold bg-green-200 px-1 py-0.5 ">{totalDays} full days </span> wasted every year
+          </div>
+
+        <div className="bg-pink-300 border-dashed m-1 rounded-md p-1 border ">
+          😱 <span className="font-bold bg-green-200 px-1 py-0.5 ">{TotalDaysInLife} days </span> lost over a lifetime
+
+        </div>
+
+        <div className="bg-pink-300 border-dashed m-1 rounded-md p-1 border ">
+          🙊 That's <span className="font-bold bg-green-200 px-1 py-0.5 ">{month} months </span>
+          </div>
+
+        <div className="bg-pink-300 border-dashed m-1 rounded-md p-1 border ">
+          💔 Or <span className="font-bold bg-green-200 px-1 py-0.5 ">{years} years </span> of your life.
+          </div>
+      </div>
     </div>
   );
 }
