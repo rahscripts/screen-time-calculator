@@ -49,7 +49,7 @@ export default function Home() {
             />
             Hours!
           </div>
-          <div className="bg-pink-300 hover:bg-pink-500 rounded px-2 p-1 m-4 cursor-pointer duration-300 transition-all text-white" onClick={handleCalculate}>calculate</div>
+          <div className="bg-pink-300 hover:bg-pink-500 rounded px-2 p-1 m-4 cursor-pointer duration-300 font-semibold transition-all text-white" onClick={handleCalculate}>calculate</div>
         </div>
         {isOpen && <div className="flex flex-col my-10 gap-2">
           <div className=" font-semibold ">
